@@ -1,10 +1,23 @@
 {
   "tasks": [
     {
-      "name": "Maths SAC",
+      "name": "Commerce test",
+      "subject": "Commerce",
+      "type": "test",
+      "due": "2026-10-07",
+      "warned": [
+        7,
+        2
+      ]
+    },
+    {
+      "name": "Math quiz",
       "subject": "Maths",
-      "type": "SAC",
-      "due": "2026-10-15"
+      "type": "test",
+      "due": "2026-10-09",
+      "warned": [
+        7
+      ]
     }
   ],
   "waiting_for_date": null,
