@@ -1,0 +1,13 @@
+# The add-on packages the bot needs.
+# Install them with: .venv/bin/python -m pip install -r requirements.txt
+
+# Lets Python talk to Telegram over the internet.
+requests>=2.31,<3
+
+# Lets Python read the secrets in the .env file.
+python-dotenv>=1.0,<2
+
+# A helper that requests uses. On the older Python that comes with macOS
+# it is kept below version 2 so it works quietly. Newer Pythons, like the
+# one on GitHub, ignore this line.
+urllib3<2; python_version < "3.10"

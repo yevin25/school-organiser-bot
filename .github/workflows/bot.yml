@@ -1,0 +1,65 @@
+# bot.yml
+# Instructions for GitHub: when to run the bot, and what steps to take.
+
+name: School organiser bot
+
+on:
+  schedule:
+    # Twice an hour (at 5 and 35 minutes past) from 6am to 9pm Melbourne time.
+    # GitHub is busiest exactly on the hour, so 5 past is more reliable.
+    - cron: "5,35 6-21 * * *"
+      timezone: "Australia/Melbourne"
+    # One last visit at 10:05pm.
+    - cron: "5 22 * * *"
+      timezone: "Australia/Melbourne"
+  # Adds a "Run workflow" button on GitHub so you can run the bot right now.
+  workflow_dispatch:
+
+# Allow this job to save tasks.json back into the repository.
+permissions:
+  contents: write
+
+# Never run two visits at the same time.
+concurrency:
+  group: school-bot
+  cancel-in-progress: false
+
+jobs:
+  visit:
+    runs-on: ubuntu-latest
+    # Stop a stuck run after 5 minutes so it cannot use up free minutes.
+    timeout-minutes: 5
+    steps:
+      - name: Get the code and tasks.json
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install the add-on packages
+        run: pip install --quiet -r requirements.txt
+
+      - name: Read messages, reply and send reminders
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python run_once.py
+
+      - name: Save tasks.json back to the repository
+        run: |
+          git config user.name "school-bot"
+          git config user.email "school-bot@users.noreply.github.com"
+          git add tasks.json
+          if ! git diff --cached --quiet; then
+            git commit --quiet -m "Update tasks"
+            git pull --quiet --rebase
+            git push --quiet
+          fi
+
+      - name: Tell Telegram the messages are dealt with
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python run_once.py confirm

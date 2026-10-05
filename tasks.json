@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "name": "What’s",
+      "subject": "General",
+      "type": "other",
+      "due": "2026-10-06"
+    },
+    {
+      "name": "Maths SAC",
+      "subject": "Maths",
+      "type": "SAC",
+      "due": "2026-10-15"
+    }
+  ],
+  "waiting_for_date": null,
+  "last_sent": {}
+}

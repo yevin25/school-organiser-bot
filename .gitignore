@@ -1,0 +1,13 @@
+# Files listed here are never uploaded by git.
+
+# Secrets (bot token, chat ID, API keys). Never upload this file.
+.env
+
+# The private toolbox of installed packages. It can always be rebuilt.
+.venv/
+
+# Temporary files that Python, macOS and the bot create by themselves.
+__pycache__/
+.DS_Store
+tasks.json.tmp
+.last_update_id
