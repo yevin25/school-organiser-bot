@@ -16,12 +16,13 @@
       "type": "test",
       "due": "2026-10-09",
       "warned": [
-        7
+        7,
+        2
       ]
     }
   ],
   "waiting_for_date": null,
   "last_sent": {
-    "morning": "2026-10-06"
+    "morning": "2026-10-07"
   }
 }
