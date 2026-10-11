@@ -23,6 +23,7 @@
   ],
   "waiting_for_date": null,
   "last_sent": {
-    "morning": "2026-10-09"
+    "morning": "2026-10-09",
+    "week_ahead": "2026-10-11"
   }
 }
